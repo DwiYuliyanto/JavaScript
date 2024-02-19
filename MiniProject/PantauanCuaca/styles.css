@@ -1,0 +1,13 @@
+.weather-container {
+    width: 300px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+input[type="text"], button {
+    margin-bottom: 10px;
+}
+
+#weather {
+    margin-top: 20px;
+}
