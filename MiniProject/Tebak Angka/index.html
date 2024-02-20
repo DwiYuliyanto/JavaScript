@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Tebak Angka</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <h1>Game Tebak Angka</h1>
+  <p>sudah ada satu angka acak antara 1 sampai 100 yang bisa ditebak</p>
+  <p>Silahkan masukkan tebakan angka anda antara 1 dan 100:</p>
+  <input type="text" id="guessInput">
+  <button onclick="checkGuess()">Tebak</button>
+  <p id="message"></p>
+
+  <script>
+    // Generate random number between min and max (inclusive)
+    function getRandomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const targetNumber = getRandomNumber(1, 100);
+    let attempts = 0;
+
+    function checkGuess() {
+      const guessInput = document.getElementById('guessInput');
+      const guess = parseInt(guessInput.value);
+
+      if (isNaN(guess) || guess < 1 || guess > 100) {
+        setMessage('Masukkan angka antara 1 dan 100.', 'red');
+        return;
+      }
+
+      attempts++;
+
+      if (guess === targetNumber) {
+        const color = attempts < 10 ? 'green' : 'orange';
+        setMessage(`Selamat! Anda menebak angka ${targetNumber} dengan benar setelah ${attempts} kali percobaan.`, color);
+        guessInput.disabled = true;
+      } else {
+        setMessage(`Angka yang Anda masukkan terlalu ${guess < targetNumber ? 'rendah' : 'tinggi'}. Coba lagi.`, 'red');
+      }
+    }
+
+    function setMessage(msg, color) {
+      document.getElementById('message').textContent = msg;
+      document.getElementById('message').style.color = color;
+    }
+  </script>
+</body>
+</html>
