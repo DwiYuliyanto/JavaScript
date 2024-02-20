@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #task-container {
+            max-width: 400px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .task-item button {
+            background-color: #ff5757;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!--memanggil task-container yang stylenya sudah diatur-->
+<div id="task-container">
+    <h2>Task List</h2>
+    <ul id="task-list"></ul>
+    <div>
+        <input type="text" id="task-input" placeholder="Add a new task">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+</div>
+
+<script>
+// Sample task data
+const tasks = [
+    { id: 1, text: 'Menambahkan fungsi search' },
+    { id: 2, text: 'Menambahkan hover' },
+    { id: 3, text: 'Menambahkan login untuk user' },
+];
+
+function renderTasks() {
+    const taskList = document.getElementById('task-list');
+    taskList.innerHTML = '';
+
+    tasks.forEach(task => {
+        const li = document.createElement('li');
+        li.className = 'task-item';
+        li.innerHTML = `
+            <span>${task.text}</span>
+            <button onclick="deleteTask(${task.id})">Delete</button>
+        `;
+        taskList.appendChild(li);
+    });
+}
+
+function addTask() {
+    const taskInput = document.getElementById('task-input');
+    const taskText = taskInput.value.trim();
+
+    if (taskText !== '') {
+        const newTask = {
+            id: tasks.length + 1,
+            text: taskText,
+        };
+
+        tasks.push(newTask);
+        taskInput.value = '';
+        renderTasks();
+    }
+}
+
+function deleteTask(id) {
+    const taskIndex = tasks.findIndex(task => task.id === id);
+
+    if (taskIndex !== -1) {
+        tasks.splice(taskIndex, 1);
+        renderTasks();
+    }
+}
+
+// Initial rendering
+renderTasks();
+</script>
+
+</body>
+</html>
