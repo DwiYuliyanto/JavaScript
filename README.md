@@ -1,2 +1,2 @@
 # JavaScript
-JavaScript project
+Kumpulan miniproject javascript
